@@ -46,8 +46,10 @@ class SearchGithubCode:
         fragments: List[str] = list()
         for item in items:
             matches = item.get("text_matches") or list()
+            repos = item.get("repository").get("html_url") or list()
             for match in matches:
                 fragments.append(match.get("fragment"))
+                fragments.append(repos)
 
         return [fragment for fragment in fragments if fragment is not None]
 
@@ -136,3 +138,7 @@ class SearchGithubCode:
     async def get_hostnames(self):
         rawres = myparser.Parser(self.total_results, self.word)
         return await rawres.hostnames()
+
+    async def get_interestingurls(self):
+        rawres = myparser.Parser(self.total_results, self.word)
+        return await rawres.repos()

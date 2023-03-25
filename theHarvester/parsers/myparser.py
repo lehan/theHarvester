@@ -55,6 +55,13 @@ class Parser:
         hostnames.extend(await self.unique())
         return list(set(hostnames))
 
+    async def repos(self):
+        repos = await self.unique()
+        reg_repos = re.compile(r'https://github.com/[a-zA-Z-/%0-9\-_]*')
+        self.temp = reg_repos.findall(self.results)
+        repos.extend(await self.unique())
+        return list(set(repos))
+
     async def hostnames_all(self):
         reg_hosts = re.compile('<cite>(.*?)</cite>')
         temp = reg_hosts.findall(self.results)

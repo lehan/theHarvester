@@ -289,7 +289,7 @@ async def start(rest_args=None):
                     try:
                         from theHarvester.discovery import githubcode
                         github_search = githubcode.SearchGithubCode(word, limit)
-                        stor_lst.append(store(github_search, engineitem, store_host=True, store_emails=True))
+                        stor_lst.append(store(github_search, engineitem, store_interestingurls=True, store_host=True, store_emails=True))
                     except MissingKey as ex:
                         print(ex)
 
